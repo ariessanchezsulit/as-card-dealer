@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
+using Common.Pool;
+
 namespace CardDealer
 {
     public class Grid : MonoBehaviour
@@ -17,7 +19,7 @@ namespace CardDealer
         private int _cols;
 
         [SerializeField]
-        private Transform _dotTemplate;
+        private Pool _dotPool;
 
         [SerializeField]
         private List<Transform> _dots;
@@ -29,6 +31,7 @@ namespace CardDealer
         {
             // Update the bounds first
             _bounds.UpdateBounds();
+            _dotPool.Preload(10);
             
             for (var i = 0; i < _cols; i++)
             {
@@ -39,14 +42,26 @@ namespace CardDealer
                     var posY = (j - (_rows - 1) * 0.5f) * (_bounds.Size.y / _rows);
 
                     var pos = _bounds.transform.position + new Vector3(posX, posY, -10f);
-                    var dot = GameObject.Instantiate(_dotTemplate, Vector3.zero, Quaternion.identity, transform);
+                    // var dot = GameObject.Instantiate(_dotTemplate, Vector3.zero, Quaternion.identity, transform);
+                    var item = _dotPool.Get<Transform>();
+                    var dot = item.Item;
+                    dot.SetParent(transform);
                     dot.name = $"Pos {posX}-{posY}";
                     dot.localPosition = pos;
+                    dot.rotation = Quaternion.identity;
                     dot.gameObject.SetActive(true);
+                    
                     
                     _dots.Add(dot);
                 }
             }
+        }
+
+        [Button]
+        public void ClearGrid()
+        {
+            _dots.Clear();
+            _dotPool.ReturnAll();
         }
     }
 }

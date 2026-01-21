@@ -1,7 +1,9 @@
 {
     "name": "LB.CardDealer",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:75774077676e4534aa99915861d826aa"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

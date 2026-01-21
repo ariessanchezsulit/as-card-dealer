@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Common.Pool;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ namespace CardDealer
     public class Deck : MonoBehaviour
     {
         [SerializeField] private Card _cardTemplate;
+        [SerializeField] private Pool _cardPool;
         [SerializeField] private List<Card> _cards; // TODO: Move this to pool
 
         [SerializeField] private Grid _grid; // TODO: Move this to Service Locator
@@ -34,7 +36,10 @@ namespace CardDealer
                 Debug.Log($"{dot.name} Pos: {dot.transform.position}");
                 
                 // TODO: Get the card(s) from the pool
-                var card = GameObject.Instantiate<Card>(_cardTemplate, this.transform);
+                var item = _cardPool.Get<Transform>();
+                item.Item.SetParent(this.transform);
+                
+                var card = item.Item.GetComponent<Card>();//GameObject.Instantiate<Card>(_cardTemplate, this.transform);
                 _cards.Add(card);
 
                 AnimateTheCard(card, dot.transform.position);
@@ -46,6 +51,7 @@ namespace CardDealer
         {
             // Convert this to tween
             var from = _cardTemplate.transform.position;
+            from.z = -1f;
             EnqueueCard(card, from, to);
         }
         
