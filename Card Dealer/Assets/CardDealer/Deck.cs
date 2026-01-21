@@ -29,7 +29,19 @@ namespace CardDealer
 
         public CardOrientation Orientation = CardOrientation.Vertical;
 
+        // For debug only
         private int _distributeIndex = 0;
+        
+        public void DistributeCard(Vector3 pos)
+        {
+            // TODO: Get the card(s) from the pool
+            var item = _cardPool.Get<Transform>();
+            item.Item.SetParent(this.transform);
+            
+            var card = item.Item.GetComponent<Card>();//GameObject.Instantiate<Card>(_cardTemplate, this.transform);
+
+            AnimateTheCard(card, pos);
+        }
         
         [Button]
         public void DistributeCard()
@@ -43,7 +55,6 @@ namespace CardDealer
             item.Item.SetParent(this.transform);
             
             var card = item.Item.GetComponent<Card>();//GameObject.Instantiate<Card>(_cardTemplate, this.transform);
-            _cards.Add(card);
 
             AnimateTheCard(card, dot.transform.position);
             
@@ -68,15 +79,15 @@ namespace CardDealer
                 item.Item.SetParent(this.transform);
                 
                 var card = item.Item.GetComponent<Card>();//GameObject.Instantiate<Card>(_cardTemplate, this.transform);
-                _cards.Add(card);
-
                 AnimateTheCard(card, dot.transform.position);
             }
         }
-        
+
         // TOOD: Move this animation out of this Deck, and remove the usage of Coroutine
-        private void AnimateTheCard(Card card, Vector3 to)
+        public void AnimateTheCard(Card card, Vector3 to)
         {
+            _cards.Add(card);
+            
             // Convert this to tween
             var from = _cardTemplate.transform.position;
             from.z = -1f;
