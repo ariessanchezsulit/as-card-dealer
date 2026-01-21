@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace CardDealer
@@ -7,7 +8,7 @@ namespace CardDealer
     {
         // Use the proper bounds, for now use, min and max from the center
         [SerializeField]
-        private Vector2 _bounds; // Width and Height * 2 bounds representation
+        private GridBounds _bounds; // Width and Height * 2 bounds representation
 
         [SerializeField]
         private int _rows;
@@ -27,30 +28,23 @@ namespace CardDealer
         [SerializeField]
         private int _positionCards;
 
-
-        [ContextMenu("Generate Grid")]
+        [Button]
         public void GenerateGrid()
         {
-            var min = new Vector3(-_bounds.x, -_bounds.y);
-            var max = new Vector3(_bounds.x, _bounds.y);
-
-            var colDistance = (max.x - min.x);
-            var unitCol = colDistance / _cols;
-            var startX = (colDistance * 0.5f) * -1f;
-
-            var rowDistance = (max.y - min.y);
-            var unitRow = rowDistance / _rows;
-            var startY = (rowDistance * 0.5f) * -1f;
-
+            // Update the bounds first
+            _bounds.UpdateBounds();
+            
             for (var i = 0; i < _cols; i++)
             {
                 for (var j = 0; j < _rows; j++)
                 {
                     // TODO: Get the dots from the grid
-                    var posX = startX + (i * unitCol);
-                    var posY = startY + (j * unitRow);
+                    var posX = (i - (_cols - 1) * 0.5f) * (_bounds.Size.x / _cols);
+                    var posY = (j - (_rows - 1) * 0.5f) * (_bounds.Size.y / _rows);
 
-                    var dot = GameObject.Instantiate<Transform>(_dotTemplate, new Vector3(posX, posY, 0), Quaternion.identity, this.transform);
+                    var dot = GameObject.Instantiate(_dotTemplate, new Vector3(posX, posY, 0), Quaternion.identity, transform);
+                    dot.name = $"Pos {posX}-{posY}";
+                    dot.gameObject.SetActive(true);
                 }
             }
         }
