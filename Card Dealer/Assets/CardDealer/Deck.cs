@@ -15,8 +15,7 @@ namespace CardDealer
             {
                 // TODO: Get the card(s) from the pool
                 var card = GameObject.Instantiate<Card>(_cardPrefab, this.transform);
-                card.Set(i, _deckPosition.position);
-
+              
                 _cards.Add(card);
                 AnimateTheCard(card, i);
             }
