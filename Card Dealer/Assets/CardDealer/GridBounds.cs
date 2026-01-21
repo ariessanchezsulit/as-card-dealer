@@ -12,7 +12,6 @@ namespace CardDealer
         [Button]
         public void UpdateBounds()
         {
-            transform.position = Vector3.zero;
             _bounds = new Bounds(
                 transform.position,
                 transform.localScale
