@@ -1,3 +1,4 @@
+using System;
 using CardDealer.Helper;
 using TMPro;
 using UnityEngine;
@@ -11,12 +12,24 @@ namespace CardDealer
         [SerializeField] private Grid _grid;
         [SerializeField] private Deck _deck;
         
-        [SerializeField] Button _deadButton;
+        [SerializeField] Button _dealButton;
         [SerializeField] private TMP_InputField _numInputField;
+
+        private void OnEnable()
+        {
+            _dealButton.onClick.AddListener(OnDeal);
+        }
+
+        private void OnDisable()
+        {
+            _dealButton.onClick.RemoveListener(OnDeal);
+        }
 
         [Button]
         public void OnDeal()
         {
+            _deck.ClearCards();
+            
             if (int.TryParse(_numInputField.text, out var num))
             {
                 CalculateTargetPositions(num);

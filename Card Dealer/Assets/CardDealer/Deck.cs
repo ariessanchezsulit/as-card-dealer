@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Common.Pool;
@@ -31,6 +32,18 @@ namespace CardDealer
 
         // For debug only
         private int _distributeIndex = 0;
+
+        // private void OnEnable()
+        // {
+        //     _cardPool.Preload(4);
+        // }
+
+        [Button]
+        public void ClearCards()
+        {
+            _cardPool.ReturnAll();
+            _cards.Clear();
+        }
         
         public void DistributeCard(Vector3 pos)
         {
@@ -89,8 +102,12 @@ namespace CardDealer
             _cards.Add(card);
             
             // Convert this to tween
-            var from = _cardTemplate.transform.position;
+            var from = _cardTemplate.transform.localPosition;
             from.z = -1f;
+            
+            card.ResetCard(_cardTemplate);
+            card.transform.localPosition = from;
+            
             EnqueueCard(card, from, to);
         }
         

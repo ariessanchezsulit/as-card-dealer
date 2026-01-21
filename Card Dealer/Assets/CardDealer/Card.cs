@@ -37,6 +37,23 @@ namespace CardDealer
         }
 
         [Button]
+        public void ResetCard(Card template)
+        {
+            transform.localPosition = template.transform.localPosition;
+            transform.localRotation = template.transform.localRotation;
+            transform.localScale = template.transform.localScale;
+            
+            _frontSprite.enabled = true;
+            _frontSprite.transform.localPosition = Vector3.zero;
+            _frontSprite.transform.localRotation = Quaternion.identity;
+            _backSprite.enabled = true;
+            _backSprite.transform.localPosition = Vector3.zero;
+            _backSprite.transform.localRotation = Quaternion.identity;
+            _orientation = CardOrientation.Vertical;
+            _isFaceDown = true;
+        }
+
+        [Button]
         public void Flip()
         {
             // Animate and flip the card here
