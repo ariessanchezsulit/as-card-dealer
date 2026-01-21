@@ -1,0 +1,23 @@
+{
+    "name": "com.potterpillar.sceneloader",
+    "version": "0.0.1",
+    "description": "Editor utility scene loader.",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://gitlab.com/potterpillar/scene-loader.git"
+    },
+    "author": {
+        "name": "Aries Sanchez Sulit <aries.sulit@gmail.com> (https://gitlab.com/ariessanchezsulit)"
+    },
+    "keywords": [
+        "editor",
+        "unity",
+        "tools"
+    ],
+    "displayName": "Scene Loader",
+    "unity": "2019.3",
+    "unityRelease": "13f1",
+    "category": "Unity",
+    "dependencies": {}
+}

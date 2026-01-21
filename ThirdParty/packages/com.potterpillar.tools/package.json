@@ -1,0 +1,16 @@
+{
+  "name": "com.potterpillar.tools",
+  "version": "0.0.1",
+  "displayName": "Tools",
+  "description": "Bunch of helper and reusably systems for Aries Sanchez Sulit",
+  "unity": "2019.4",
+  "author": {
+    "name": "Aries Sanchez Sulit <aries.sulit@gmail.com> (https://gitlab.com/ariessanchezsulit)"
+  },
+  "keywords": [
+    "unity",
+    "tools",
+    "extensions"
+  ],
+  "license": "MIT"
+}

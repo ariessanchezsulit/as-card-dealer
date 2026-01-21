@@ -1,0 +1,21 @@
+{
+    "name": "PotterPillar.Tools.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:75774077676e4534aa99915861d826aa",
+        "GUID:56f0af5eabd0f8244a313552ef7d963e",
+        "GUID:3767bd2fcc2929d49adf67951df41fd4",
+        "GUID:70f6abb7cb592bc4490dc884b93dd25d"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
