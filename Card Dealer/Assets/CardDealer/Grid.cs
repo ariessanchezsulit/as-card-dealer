@@ -22,11 +22,7 @@ namespace CardDealer
         [SerializeField]
         private List<Transform> _dots;
 
-        [SerializeField]
-        private Deck _deck;
-
-        [SerializeField]
-        private int _positionCards;
+        public IList<Transform> Dots => _dots;
 
         [Button]
         public void GenerateGrid()
@@ -47,6 +43,8 @@ namespace CardDealer
                     dot.name = $"Pos {posX}-{posY}";
                     dot.localPosition = pos;
                     dot.gameObject.SetActive(true);
+                    
+                    _dots.Add(dot);
                 }
             }
         }

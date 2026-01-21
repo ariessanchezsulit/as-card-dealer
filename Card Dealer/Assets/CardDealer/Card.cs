@@ -43,7 +43,7 @@ namespace CardDealer
 
         private void AnimateCardFlip()
         {
-            var targetY = _isFaceDown ? 0f : 180f;
+            var targetY = !_isFaceDown ? 0f : 180f;
             var current = transform.localEulerAngles;
             var newY = Mathf.MoveTowardsAngle(
                 current.y,
