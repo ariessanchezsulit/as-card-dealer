@@ -256,7 +256,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &56231737
 MonoBehaviour:
@@ -1744,7 +1744,7 @@ Transform:
   - {fileID: 983106969}
   - {fileID: 840982925}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &983741550
 MonoBehaviour:
@@ -3129,7 +3129,7 @@ Transform:
   - {fileID: 1858511040}
   - {fileID: 1071999941}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1955776720
 MonoBehaviour:
@@ -3146,7 +3146,6 @@ MonoBehaviour:
   _cardTemplate: {fileID: 1858511041}
   _cardPool: {fileID: 1955776721}
   _cards: []
-  _grid: {fileID: 983741550}
   _moveDuration: 0.25
   _delayInterval: 0.05
   Orientation: 1

@@ -3,10 +3,11 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 using Common.Pool;
+using PP.Tools.Common;
 
 namespace CardDealer
 {
-    public class Grid : MonoBehaviour
+    public class Grid : MonoBehaviour, ILocatable
     {
         // Use the proper bounds, for now use, min and max from the center
         [SerializeField]
@@ -121,6 +122,11 @@ namespace CardDealer
             dot.localPosition = targetPos;
             dot.rotation = Quaternion.identity;
             dot.gameObject.SetActive(true);
+        }
+
+        public void Dispose()
+        {
+            // Cleanup whatever you needed to clean here
         }
     }
 }

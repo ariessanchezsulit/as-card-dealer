@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Common.Pool;
+using PP.Tools.Common;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -15,13 +16,11 @@ namespace CardDealer
         public CardOrientation Or;
     }
     
-    public class Deck : MonoBehaviour
+    public class Deck : MonoBehaviour, ILocatable
     {
         [SerializeField] private Card _cardTemplate;
         [SerializeField] private Pool _cardPool;
         [SerializeField] private List<Card> _cards; // TODO: Move this to pool
-
-        [SerializeField] private Grid _grid; // TODO: Move this to Service Locator
 
         [SerializeField] private float _moveDuration = 0.25f;
         [SerializeField] private float _delayInterval = 0.05f;
@@ -33,10 +32,12 @@ namespace CardDealer
         // For debug only
         private int _distributeIndex = 0;
 
-        // private void OnEnable()
-        // {
-        //     _cardPool.Preload(4);
-        // }
+        private Grid _grid;
+
+        private void Start()
+        {
+            _grid = Dealer.Locator.Get<Grid>();
+        }
 
         [Button]
         public void ClearCards()
@@ -157,6 +158,11 @@ namespace CardDealer
             }
 
             card.position = to;
+        }
+        
+        public void Dispose()
+        {
+            // Cleanup whatever you needed to clean here
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using CardDealer.Helper;
+using PP.Tools.Common;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,11 +10,19 @@ namespace CardDealer
 {
     public class Dealer : MonoBehaviour
     {
+        public static readonly Locator Locator = new Locator();
+        
         [SerializeField] private Grid _grid;
         [SerializeField] private Deck _deck;
         
         [SerializeField] Button _dealButton;
         [SerializeField] private TMP_InputField _numInputField;
+
+        private void Awake()
+        {
+            Locator.Register(_grid);
+            Locator.Register(_deck);
+        }
 
         private void OnEnable()
         {
