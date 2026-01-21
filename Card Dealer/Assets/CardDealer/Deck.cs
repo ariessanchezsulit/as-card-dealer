@@ -73,7 +73,6 @@ namespace CardDealer
                 yield return new WaitForSeconds(_delayInterval);
                 
                 entry.Card.Flip();
-                _cards.Add(entry.Card);
             }
 
             _isRunning = false;
