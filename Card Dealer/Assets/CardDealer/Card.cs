@@ -4,6 +4,12 @@ using UnityEngine;
 
 namespace CardDealer
 {
+    public enum CardOrientation
+    {
+        Horizontal,
+        Vertical
+    }
+    
     public class Card : MonoBehaviour
     {
         // TODO: Use Service Locator for the camera
@@ -16,9 +22,13 @@ namespace CardDealer
         [SerializeField]
         private bool _isFaceDown = true;
 
+        [SerializeField] 
+        private CardOrientation _orientation = CardOrientation.Vertical;
+
         private void Update()
         {
             AnimateCardFlip();
+            AnimateCardTilt();
         }
 
         private void LateUpdate()
@@ -45,13 +55,38 @@ namespace CardDealer
         {
             var targetY = !_isFaceDown ? 0f : 180f;
             var current = transform.localEulerAngles;
+            
             var newY = Mathf.MoveTowardsAngle(
                 current.y,
                 targetY,
                 rotateSpeed * Time.deltaTime
             );
-
+            
             transform.localRotation = Quaternion.Euler(0f, newY, 0f);
+        }
+        
+        [Button]
+        public void Tilt(CardOrientation orientation)
+        {
+            _orientation = orientation;
+        }
+
+        private void AnimateCardTilt()
+        {
+            if (_orientation == CardOrientation.Horizontal)
+            {
+                var targetZ = 90f;
+                var currentZ = _frontSprite.transform.localEulerAngles;
+                
+                var newZ = Mathf.MoveTowardsAngle(
+                    currentZ.z,
+                    targetZ,
+                    rotateSpeed * Time.deltaTime
+                );
+                
+                _frontSprite.transform.localRotation = Quaternion.Euler(0f, 0f, newZ);
+                _backSprite.transform.localRotation = Quaternion.Euler(0f, 0f, newZ);
+            }
         }
     }
 }

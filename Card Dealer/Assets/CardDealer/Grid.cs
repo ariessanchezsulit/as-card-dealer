@@ -102,6 +102,7 @@ namespace CardDealer
             // }
             else
             {
+                // Hardcoded for 4x3 (4 Cols x 3 Rows)
                 targetIndex = (_dots.Count / 2) - 2;
                 offsetX = (_bounds.Size.x / _cols) * 0.5f;
                 offsetY = 0f;

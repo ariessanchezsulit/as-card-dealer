@@ -11,6 +11,7 @@ namespace CardDealer
         public Card Card;
         public Vector3 From;
         public Vector3 To;
+        public CardOrientation Or;
     }
     
     public class Deck : MonoBehaviour
@@ -25,6 +26,33 @@ namespace CardDealer
         [SerializeField] private float _delayInterval = 0.05f;
         private readonly Queue<CardEntry> _queue = new();
         private bool _isRunning;
+
+        public CardOrientation Orientation = CardOrientation.Vertical;
+
+        private int _distributeIndex = 0;
+        
+        [Button]
+        public void DistributeCard()
+        {
+            var dot = _grid.Dots[_distributeIndex];
+            
+            Debug.Log($"{dot.name} Pos: {dot.transform.position}");
+            
+            // TODO: Get the card(s) from the pool
+            var item = _cardPool.Get<Transform>();
+            item.Item.SetParent(this.transform);
+            
+            var card = item.Item.GetComponent<Card>();//GameObject.Instantiate<Card>(_cardTemplate, this.transform);
+            _cards.Add(card);
+
+            AnimateTheCard(card, dot.transform.position);
+            
+            _distributeIndex++;
+            if (_distributeIndex > 11)
+            {
+                _distributeIndex = 0;
+            }
+        }
         
         [Button]
         public void DistributeCards()
@@ -61,6 +89,7 @@ namespace CardDealer
             entry.Card = card;
             entry.From = from;
             entry.To = to;
+            entry.Or = Orientation;
             
             _queue.Enqueue(entry);
 
@@ -75,10 +104,12 @@ namespace CardDealer
             while (_queue.Count > 0)
             {
                 var entry = _queue.Dequeue();
+                
                 yield return MoveCard(entry.Card.transform, entry.From, entry.To, _moveDuration);
                 yield return new WaitForSeconds(_delayInterval);
                 
                 entry.Card.Flip();
+                entry.Card.Tilt(entry.Or);
             }
 
             _isRunning = false;
@@ -91,6 +122,7 @@ namespace CardDealer
 
             while (t < 1f)
             {
+                // Move the card
                 t += Time.deltaTime / duration;
                 card.position = Vector3.Lerp(from, to, t);
                 yield return null;
